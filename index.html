@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Delrei Arquitetura. Mais de três décadas projetando com alma e identidade. Camaçari, Bahia.">
+<title>Delrei Arquitetura | Mais de três décadas projetando com alma e identidade</title>
+<link rel="icon" type="image/png" href="img/logo-preto.png">
+<style>
+/* === FONTES OFICIAIS === */
+@font-face{font-family:'Posterama';src:url('fonts/posterama-light.otf') format('opentype');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Posterama';src:url('fonts/posterama-regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Posterama';src:url('fonts/posterama-semibold.otf') format('opentype');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Posterama';src:url('fonts/posterama-bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Segoe UI';src:url('fonts/segoe-ui.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Segoe UI';src:url('fonts/segoe-ui-bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Segoe UI';src:url('fonts/segoe-ui-italic.ttf') format('truetype');font-weight:400;font-style:italic;font-display:swap}
+
+:root{
+  --gold:#C3A34D; --gold-dark:#A88932; --gold-soft:#D8BD90;
+  --black:#1a1a1a; --grey-text:#5a5a5a; --grey-soft:#999; --grey-line:#e8e3d9;
+  --cream:#FAF8F4; --cream-warm:#F4EFE5; --white:#FFFFFF;
+  --font-display:'Posterama',sans-serif;
+  --font-body:'Segoe UI','Posterama',sans-serif;
+  --max-width:1340px; --section-padding:130px 24px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font-body);font-weight:400;font-size:15px;line-height:1.7;color:var(--black);background:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none;transition:color .3s ease}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+/* SPLASH */
+.splash{position:fixed;inset:0;z-index:9999;background:var(--white);display:flex;align-items:center;justify-content:center;transition:opacity .8s ease, visibility .8s ease}
+.splash.is-hidden{opacity:0;visibility:hidden}
+.splash img{width:200px;animation:splashIn 1s cubic-bezier(.16,1,.3,1)}
+@keyframes splashIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* HEADER */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--grey-line);transition:transform .4s ease}
+.site-header.is-hidden{transform:translateY(-100%)}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;padding:18px 36px;max-width:none}
+.site-logo img{height:42px;transition:opacity .3s}
+.site-logo:hover img{opacity:.7}
+.site-nav{display:flex;gap:42px}
+.site-nav a{font-family:var(--font-display);font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:400;color:var(--black);position:relative;padding:6px 0}
+.site-nav a::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);transition:width .35s cubic-bezier(.16,1,.3,1)}
+.site-nav a:hover::after,.site-nav a.active::after{width:100%}
+.site-nav a.active{color:var(--gold-dark)}
+.menu-toggle{display:none;width:32px;height:32px;flex-direction:column;justify-content:center;gap:6px}
+.menu-toggle span{width:24px;height:1px;background:var(--black);transition:all .3s;display:block}
+.menu-toggle.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-toggle.is-open span:nth-child(2){opacity:0}
+.menu-toggle.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* HERO */
+.hero{position:relative;height:calc(100vh - 78px);min-height:540px;max-height:740px;overflow:hidden;background:var(--white);margin-top:78px;transition:background .8s ease}
+.hero.slide-projeto{background:#0a0a0a}
+.hero-slides{position:absolute;inset:0}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
+.hero-slide.is-active{opacity:1}
+
+/* Slide marca: imagem inteira centrada, sem cortar */
+.hero-img-marca{width:100%;height:100%;object-fit:contain;object-position:center;background:var(--white);animation:fadeIn 1.2s ease}
+@keyframes fadeIn{from{opacity:.6}to{opacity:1}}
+
+/* Versao mobile do slide marca: foto pura + quadrante CSS recriado */
+.hero-marca-mobile{display:none;position:absolute;inset:0}
+.hero-marca-mobile-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(100%) contrast(1.05) brightness(.88);animation:kenburnsM 9s ease-out forwards}
+.hero-marca-mobile-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.4) 100%)}
+@keyframes kenburnsM{from{transform:scale(1.05)}to{transform:scale(1)}}
+.hero-marca-mobile-quadrant{position:absolute;top:0;left:0;width:82%;height:50%;background:var(--gold);padding:32px 28px;display:flex;align-items:center;border-bottom-right-radius:50% 40%;z-index:2;overflow:hidden}
+.hero-marca-mobile-quadrant::before{content:'';position:absolute;inset:0;background:url('img/textura.png') no-repeat center/cover;opacity:.3;mix-blend-mode:overlay}
+.hero-marca-mobile-title{font-family:var(--font-display);font-size:clamp(15px,4.4vw,22px);font-weight:300;line-height:1.4;letter-spacing:.06em;text-transform:uppercase;color:var(--white);margin:0;position:relative;z-index:1}
+.hero-marca-mobile-title em{font-family:var(--font-display);font-style:normal;font-weight:600;letter-spacing:.04em}
+
+/* Slide projeto: background com quadrante CSS */
+.hero-slide-projeto{background-size:cover;background-position:center;filter:grayscale(100%) contrast(1.06) brightness(.88)}
+.hero-slide-projeto::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.4) 100%)}
+
+/* Quadrante só aparece nos slides projeto */
+.hero-quadrant{position:absolute;top:0;left:0;width:clamp(360px,46%,560px);height:clamp(320px,64%,460px);background:var(--gold);padding:48px 56px;display:flex;align-items:center;border-bottom-right-radius:60% 50%;z-index:2;overflow:hidden;opacity:0;transition:opacity .9s ease;pointer-events:none}
+.hero-quadrant.is-visible{opacity:1;pointer-events:auto}
+.hero-quadrant::before{content:'';position:absolute;inset:0;background:url('img/textura.png') no-repeat center/cover;opacity:.3;mix-blend-mode:overlay}
+.hero-text{width:100%;opacity:0;position:absolute;left:56px;right:56px;top:50%;transform:translateY(-50%) translateY(8px);transition:opacity .9s ease,transform .9s ease}
+.hero-text.is-active{opacity:1;transform:translateY(-50%) translateY(0)}
+.hero-title{font-family:var(--font-display);font-size:clamp(28px,3.4vw,46px);font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:var(--white);margin:0 0 16px}
+.hero-eyebrow{display:block;font-family:var(--font-display);font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:18px;font-weight:400}
+.hero-link{display:inline-block;margin-top:8px;padding:11px 28px;border:1px solid rgba(255,255,255,.65);color:var(--white);font-family:var(--font-display);font-size:11px;letter-spacing:.3em;text-transform:uppercase;border-radius:60px;transition:all .35s ease;width:fit-content;cursor:pointer;font-weight:400}
+.hero-link:hover{background:var(--white);color:var(--gold-dark);border-color:var(--white)}
+
+.hero-dots{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:3}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(0,0,0,.25);border:none;padding:0;transition:all .35s;cursor:pointer}
+.hero-dot.is-active{background:var(--gold);transform:scale(1.4)}
+.hero.slide-projeto .hero-dot{background:rgba(255,255,255,.4)}
+.hero.slide-projeto .hero-dot.is-active{background:var(--white)}
+.hero-scroll{position:absolute;bottom:36px;right:36px;font-family:var(--font-display);font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:rgba(0,0,0,.5);writing-mode:vertical-rl;z-index:3;animation:scrollHint 2.4s ease-in-out infinite;transition:color .8s ease}
+.hero.slide-projeto .hero-scroll{color:rgba(255,255,255,.7)}
+@keyframes scrollHint{0%,100%{transform:translateY(0);opacity:.7}50%{transform:translateY(8px);opacity:1}}
+
+/* TEXTURA SUTIL DE FUNDO */
+.with-texture{position:relative}
+.with-texture::before{content:'';position:absolute;inset:0;background:url('img/textura.png') no-repeat center/cover;opacity:.18;pointer-events:none;z-index:0}
+.with-texture > *{position:relative;z-index:1}
+
+/* SECTION TITLE */
+.section-title{font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:.45em;text-transform:uppercase;color:var(--black);margin:0 auto 56px;text-align:center;display:block;width:fit-content;position:relative}
+.section-title::after{content:'';display:block;width:50px;height:1px;background:var(--gold);margin:14px auto 0}
+
+/* PROJETOS */
+.projetos{padding:var(--section-padding);background:var(--white);overflow:hidden}
+.projetos-intro{text-align:center;max-width:580px;margin:0 auto 64px;color:var(--grey-text);font-size:15px;line-height:1.85;font-family:var(--font-body)}
+.projetos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:var(--max-width);margin:0 auto 72px}
+.projeto-card{position:relative;overflow:hidden;aspect-ratio:3/2;cursor:pointer;display:block;background:var(--cream)}
+.projeto-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1);filter:saturate(.9)}
+.projeto-card:hover img{transform:scale(1.06);filter:saturate(1.05)}
+.projeto-card::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .55s ease;z-index:1}
+.projeto-card:hover::after{background:rgba(0,0,0,.62)}
+.projeto-name{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--white);font-family:var(--font-display);font-size:clamp(15px,1.6vw,22px);font-weight:300;letter-spacing:.4em;text-transform:uppercase;padding:20px;opacity:0;transform:translateY(10px);transition:opacity .55s ease, transform .55s ease;z-index:2;pointer-events:none}
+.projeto-card:hover .projeto-name{opacity:1;transform:translateY(0)}
+.projeto-name::after{content:'';display:block;width:24px;height:1px;background:var(--gold);margin-top:14px;opacity:0;transition:opacity .55s ease .15s}
+.projeto-card:hover .projeto-name::after{opacity:1}
+
+.btn-vermais{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto;padding:18px 60px;background:transparent;border:1px solid var(--gold);color:var(--gold-dark);font-family:var(--font-display);font-size:12px;letter-spacing:.35em;text-transform:uppercase;font-weight:400;border-radius:60px;cursor:pointer;transition:all .4s ease;width:fit-content}
+.btn-vermais:hover{background:var(--gold);color:var(--white);transform:translateY(-2px);box-shadow:0 12px 28px rgba(195,163,77,.3)}
+.btn-vermais svg{width:14px;height:14px;transition:transform .35s}
+.btn-vermais:hover svg{transform:translateX(4px)}
+
+/* SOBRE */
+.sobre{padding:var(--section-padding);background:var(--cream-warm);overflow:hidden}
+.sobre-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:90px;align-items:center;max-width:var(--max-width);margin:0 auto}
+.sobre-image{position:relative}
+.sobre-image img{width:100%;aspect-ratio:1/1;object-fit:cover;position:relative;z-index:1}
+.sobre-image::before{content:'';position:absolute;bottom:-18px;right:-18px;width:55%;height:55%;background:var(--gold);z-index:0;opacity:.55}
+.sobre-image::after{content:'';position:absolute;top:-12px;left:-12px;width:80px;height:80px;border:1px solid var(--gold);z-index:0;opacity:.6}
+.sobre-content .section-title{margin:0 0 32px;text-align:left;width:auto;padding-left:50px;display:block}
+.sobre-content .section-title::after{display:none}
+.sobre-content .section-title::before{content:'';position:absolute;left:0;top:50%;width:36px;height:1px;background:var(--gold)}
+.sobre-text{font-family:var(--font-body);font-size:15px;line-height:1.9;color:var(--grey-text);margin-bottom:20px;max-width:560px}
+.sobre-text strong{color:var(--black);font-weight:700}
+.sobre-stats{display:flex;gap:56px;margin-top:42px;padding-top:36px;border-top:1px solid rgba(195,163,77,.35)}
+.sobre-stat-num{font-family:var(--font-display);font-style:normal;font-size:54px;font-weight:300;color:var(--gold);line-height:1;display:block;letter-spacing:-.02em}
+.sobre-stat-label{display:block;font-family:var(--font-display);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--grey-text);margin-top:8px;font-weight:400}
+
+/* CONTATOS */
+.contatos{padding:130px 24px 0}
+.contatos .section-title{margin-bottom:60px}
+.contatos-grid{display:grid;grid-template-columns:1.4fr 1fr;max-width:var(--max-width);margin:0 auto;min-height:340px}
+.map-wrapper{position:relative;background:#f0f0f0;overflow:hidden}
+.map-wrapper iframe{width:100%;height:100%;min-height:340px;border:0;filter:grayscale(35%) contrast(1.05)}
+.address-card{background:var(--gold);color:var(--white);padding:60px 48px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.address-card::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border:1px solid rgba(255,255,255,.22);border-radius:50%}
+.address-card::after{content:'';position:absolute;inset:0;background:url('img/textura.png') no-repeat center/cover;opacity:.18;mix-blend-mode:overlay;pointer-events:none}
+.address-card .address-icon{width:28px;height:28px;margin-bottom:18px;opacity:.85;position:relative;z-index:1}
+.address-card p{font-family:var(--font-body);font-size:15px;line-height:1.75;margin:0;font-weight:400;position:relative;z-index:1}
+
+/* FORM */
+.contato-form{padding:120px 24px;background:var(--cream);position:relative;overflow:hidden}
+.contato-form::before{content:'';position:absolute;inset:0;background:url('img/textura.png') no-repeat center/cover;opacity:.15;pointer-events:none}
+.form-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:90px;max-width:var(--max-width);margin:0 auto;align-items:start;position:relative;z-index:1}
+.form-intro h2{font-family:var(--font-display);font-size:clamp(38px,4.2vw,60px);line-height:1;font-weight:600;text-transform:uppercase;color:var(--gold);margin:0 0 30px;letter-spacing:.02em}
+.form-intro p{font-family:var(--font-body);font-size:15px;line-height:1.8;color:var(--grey-text);margin:0 0 16px;max-width:380px}
+.form-contacts{margin-top:40px;padding-top:28px;border-top:1px solid var(--grey-line);font-size:14px;color:var(--grey-text)}
+.form-contacts a{font-family:var(--font-body);color:var(--grey-text);display:flex;align-items:center;gap:12px;margin-bottom:10px;transition:color .3s}
+.form-contacts a:hover{color:var(--gold-dark)}
+.form-contacts svg{width:16px;height:16px;opacity:.7;flex-shrink:0}
+.contato-form input,.contato-form select,.contato-form textarea{width:100%;padding:18px 26px;border:1px solid var(--grey-line);border-radius:100px;background:var(--white);font-family:var(--font-body);font-size:14px;color:var(--grey-text);margin-bottom:14px;outline:none;transition:all .3s ease}
+.contato-form textarea{border-radius:24px;min-height:120px;resize:vertical;padding-top:20px}
+.contato-form input:focus,.contato-form select:focus,.contato-form textarea:focus{border-color:var(--gold);box-shadow:0 4px 24px rgba(195,163,77,.18)}
+.contato-form input::placeholder,.contato-form textarea::placeholder{color:var(--gold-soft);opacity:1;font-family:var(--font-body)}
+.contato-form select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23C3A34D' stroke-width='1.5' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 26px center;background-size:12px;color:var(--gold-soft)}
+.contato-form .field-label{display:block;font-family:var(--font-display);font-size:12px;color:var(--grey-soft);margin:8px 26px 6px;letter-spacing:.1em;text-transform:uppercase}
+.contato-form button[type="submit"]{width:100%;padding:22px;background:var(--gold);color:var(--white);border-radius:100px;font-family:var(--font-display);font-size:12px;letter-spacing:.35em;text-transform:uppercase;font-weight:600;border:none;cursor:pointer;transition:all .35s ease;margin-top:8px}
+.contato-form button[type="submit"]:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 14px 30px rgba(195,163,77,.4)}
+.contato-form button[type="submit"]:disabled{opacity:.7;cursor:wait;transform:none}
+.form-msg{padding:18px 24px;border-radius:60px;margin-bottom:18px;font-family:var(--font-body);font-size:13px;text-align:center}
+.form-msg--ok{background:var(--white);border:1px solid var(--gold);color:var(--gold-dark)}
+
+/* FOOTER */
+.site-footer{padding:48px 24px;text-align:center;font-family:var(--font-body);font-size:11px;letter-spacing:.18em;background:var(--black);color:rgba(255,255,255,.5)}
+.site-footer img{height:38px;margin:0 auto 18px;opacity:.85}
+.site-footer a{color:var(--gold);font-weight:600}
+.site-footer p{margin:0;line-height:1.9}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+.reveal.is-visible{opacity:1;transform:translateY(0)}
+.reveal-stagger>*{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal-stagger.is-visible>*{opacity:1;transform:translateY(0)}
+.reveal-stagger.is-visible>*:nth-child(1){transition-delay:0s}
+.reveal-stagger.is-visible>*:nth-child(2){transition-delay:.08s}
+.reveal-stagger.is-visible>*:nth-child(3){transition-delay:.16s}
+.reveal-stagger.is-visible>*:nth-child(4){transition-delay:.24s}
+.reveal-stagger.is-visible>*:nth-child(5){transition-delay:.32s}
+.reveal-stagger.is-visible>*:nth-child(6){transition-delay:.4s}
+.reveal-stagger.is-visible>*:nth-child(7){transition-delay:.48s}
+.reveal-stagger.is-visible>*:nth-child(8){transition-delay:.56s}
+.reveal-stagger.is-visible>*:nth-child(9){transition-delay:.64s}
+.reveal-stagger.is-visible>*:nth-child(10){transition-delay:.72s}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(10,10,10,.97);display:none;align-items:center;justify-content:center;z-index:9000}
+.lightbox.is-open{display:flex}
+.lightbox-content{position:relative;max-width:95%;max-height:95vh;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.lightbox-header{position:absolute;top:28px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:0 36px;color:var(--white);z-index:1}
+.lightbox-title-wrap{flex:1;text-align:center;padding:0 60px}
+.lightbox-title{font-family:var(--font-display);font-size:14px;letter-spacing:.45em;text-transform:uppercase;font-weight:300;margin:0 0 6px;color:var(--white)}
+.lightbox-counter{font-family:var(--font-display);font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.25em;font-weight:400}
+.lightbox-close{background:none;border:none;color:var(--white);font-size:36px;cursor:pointer;line-height:1;font-weight:200;padding:0;width:40px;height:40px;display:flex;align-items:center;justify-content:center;transition:transform .3s;flex-shrink:0}
+.lightbox-close:hover{transform:rotate(90deg)}
+.lightbox-img-wrap{display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:120px 100px 200px}
+.lightbox-img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 24px 70px rgba(0,0,0,.7)}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:var(--white);width:54px;height:54px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:22px;backdrop-filter:blur(8px)}
+.lightbox-nav:hover{background:var(--gold);border-color:var(--gold);transform:translateY(-50%) scale(1.08)}
+.lightbox-prev{left:32px}
+.lightbox-next{right:32px}
+.lightbox-description{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);max-width:760px;width:92%;text-align:center;color:rgba(255,255,255,.92);font-family:var(--font-body);font-size:14px;line-height:1.85;padding:24px 32px;background:rgba(0,0,0,.55);backdrop-filter:blur(10px);border-radius:12px;border:1px solid rgba(195,163,77,.2);font-weight:400;max-height:38vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+.lightbox-description::-webkit-scrollbar{width:4px}
+.lightbox-description::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .projetos-grid{grid-template-columns:repeat(2,1fr)}
+  .sobre-grid{gap:60px}
+}
+@media(max-width:900px){
+  :root{--section-padding:72px 20px}
+  .menu-toggle{display:flex}
+  .site-header .container{padding:14px 20px}
+  .site-nav{position:fixed;top:64px;left:0;right:0;background:var(--white);flex-direction:column;padding:32px 24px;gap:22px;border-bottom:1px solid var(--grey-line);transform:translateY(-120%);transition:transform .45s ease;align-items:flex-start}
+  .site-nav.is-open{transform:translateY(0)}
+  .hero{margin-top:64px;height:calc(85vh - 64px);min-height:520px;background:#0a0a0a !important}
+  .hero-img-marca{display:none}
+  .hero-marca-mobile{display:block}
+  .hero.slide-projeto .hero-dot{background:rgba(255,255,255,.4)}
+  .hero .hero-dot{background:rgba(255,255,255,.4)}
+  .hero .hero-dot.is-active{background:var(--white)}
+  .hero .hero-scroll{color:rgba(255,255,255,.7)}
+  .hero-quadrant{width:82%;height:50%;padding:32px 28px;border-bottom-right-radius:50% 40%}
+  .hero-text{left:28px;right:28px}
+  .sobre-grid{grid-template-columns:1fr;gap:48px}
+  .sobre-image::before,.sobre-image::after{display:none}
+  .sobre-stats{gap:32px}
+  .sobre-stat-num{font-size:38px}
+  .contatos-grid{grid-template-columns:1fr}
+  .map-wrapper iframe{min-height:240px}
+  .address-card{padding:36px 28px}
+  .form-grid{grid-template-columns:1fr;gap:40px}
+  .form-intro p{max-width:100%}
+  .lightbox-img-wrap{padding:90px 16px 240px}
+  .lightbox-nav{width:44px;height:44px}
+  .lightbox-prev{left:12px}
+  .lightbox-next{right:12px}
+  .lightbox-description{font-size:13px;padding:18px 20px;line-height:1.7;max-height:42vh}
+}
+@media(max-width:600px){
+  .projetos-grid{grid-template-columns:1fr;gap:8px}
+  .projeto-name{font-size:16px;letter-spacing:.3em}
+  .hero-title{font-size:24px;letter-spacing:.15em}
+  .lightbox-header{padding:0 16px}
+  .lightbox-title{font-size:12px;letter-spacing:.3em}
+}
+</style>
+</head>
+<body>
+
+<div class="splash" id="splash">
+  <img src="img/logo-preto.png" alt="Delrei Arquitetura">
+</div>
+
+<header class="site-header" id="header">
+  <div class="container">
+    <a href="#home" class="site-logo">
+      <img src="img/logo-preto.png" alt="Delrei Arquitetura">
+    </a>
+    <nav class="site-nav" id="nav">
+      <a href="#home" class="active">HOME</a>
+      <a href="#projetos">PROJETOS</a>
+      <a href="#sobre">SOBRE</a>
+      <a href="#contato">CONTATO</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-slides" id="heroSlides">
+      <!-- SLIDE 1: banner real inteiro (desktop) ou foto pura + quadrante CSS (mobile) -->
+      <div class="hero-slide is-active">
+        <img src="img/banner-marca.jpg" class="hero-img-marca" alt="Mais de três décadas projetando com alma e identidade">
+        <div class="hero-marca-mobile" aria-hidden="true">
+          <div class="hero-marca-mobile-bg" style="background-image:url('img/mauricio.jpg')"></div>
+          <div class="hero-marca-mobile-quadrant">
+            <h1 class="hero-marca-mobile-title">MAIS DE TRÊS DÉCADAS PROJETANDO COM <em>ALMA</em> E IDENTIDADE</h1>
+          </div>
+        </div>
+      </div>
+      <!-- SLIDES 2-4: foto do projeto + quadrante CSS dourado -->
+      <div class="hero-slide hero-slide-projeto" style="background-image:url('img/projetos/casa-av.jpg')"></div>
+      <div class="hero-slide hero-slide-projeto" style="background-image:url('img/projetos/casa-bf.jpg')"></div>
+      <div class="hero-slide hero-slide-projeto" style="background-image:url('img/projetos/casa-dc.jpg')"></div>
+    </div>
+
+    <!-- Quadrante só aparece nos slides 2-4 -->
+    <div class="hero-quadrant" id="heroQuadrant">
+      <div class="hero-text" data-tipo="projeto" data-projeto="casa-av">
+        <span class="hero-eyebrow">Projeto em destaque</span>
+        <h2 class="hero-title">Casa AV</h2>
+        <button class="hero-link" data-open-projeto="casa-av">Ver projeto</button>
+      </div>
+      <div class="hero-text" data-tipo="projeto" data-projeto="casa-bf">
+        <span class="hero-eyebrow">Projeto em destaque</span>
+        <h2 class="hero-title">Casa BF</h2>
+        <button class="hero-link" data-open-projeto="casa-bf">Ver projeto</button>
+      </div>
+      <div class="hero-text" data-tipo="projeto" data-projeto="casa-dc">
+        <span class="hero-eyebrow">Projeto em destaque</span>
+        <h2 class="hero-title">Casa DC</h2>
+        <button class="hero-link" data-open-projeto="casa-dc">Ver projeto</button>
+      </div>
+    </div>
+
+    <div class="hero-dots">
+      <button class="hero-dot is-active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
+      <button class="hero-dot" data-slide="2" aria-label="Slide 3"></button>
+      <button class="hero-dot" data-slide="3" aria-label="Slide 4"></button>
+    </div>
+    <span class="hero-scroll">scroll</span>
+  </section>
+
+  <!-- PROJETOS -->
+  <section id="projetos" class="projetos with-texture">
+    <h2 class="section-title">Projetos</h2>
+    <p class="projetos-intro reveal">Cada projeto, uma história. Cada espaço, uma identidade. Conheça obras que traduzem três décadas de experiência em arquitetura residencial autoral.</p>
+
+    <div class="projetos-grid reveal-stagger" id="projetosGridHome">
+      <!-- Vai mostrar 6 primeiros, "Ver mais" mostra os 4 restantes -->
+      <a href="#" class="projeto-card" data-open-projeto="casa-av"><img src="img/projetos/casa-av.jpg" alt="Casa AV" loading="lazy"><span class="projeto-name">Casa AV</span></a>
+      <a href="#" class="projeto-card" data-open-projeto="casa-bf"><img src="img/projetos/casa-bf.jpg" alt="Casa BF" loading="lazy"><span class="projeto-name">Casa BF</span></a>
+      <a href="#" class="projeto-card" data-open-projeto="casa-dc"><img src="img/projetos/casa-dc.jpg" alt="Casa DC" loading="lazy"><span class="projeto-name">Casa DC</span></a>
+      <a href="#" class="projeto-card" data-open-projeto="casa-dm"><img src="img/projetos/casa-dm.jpg" alt="Casa DM" loading="lazy"><span class="projeto-name">Casa DM</span></a>
+      <a href="#" class="projeto-card" data-open-projeto="casa-dr"><img src="img/projetos/casa-dr.jpg" alt="Casa DR" loading="lazy"><span class="projeto-name">Casa DR</span></a>
+      <a href="#" class="projeto-card" data-open-projeto="casa-ef"><img src="img/projetos/casa-ef.jpg" alt="Casa EF" loading="lazy"><span class="projeto-name">Casa EF</span></a>
+      <a href="#" class="projeto-card oculto" data-open-projeto="casa-gs" style="display:none"><img src="img/projetos/casa-gs.jpg" alt="Casa GS" loading="lazy"><span class="projeto-name">Casa GS</span></a>
+      <a href="#" class="projeto-card oculto" data-open-projeto="casa-pe" style="display:none"><img src="img/projetos/casa-pe.jpg" alt="Casa PE" loading="lazy"><span class="projeto-name">Casa PE</span></a>
+      <a href="#" class="projeto-card oculto" data-open-projeto="casa-raf" style="display:none"><img src="img/projetos/casa-raf.jpg" alt="Casa RAF" loading="lazy"><span class="projeto-name">Casa RAF</span></a>
+      <a href="#" class="projeto-card oculto" data-open-projeto="casa-rm" style="display:none"><img src="img/projetos/casa-rm.jpg" alt="Casa RM" loading="lazy"><span class="projeto-name">Casa RM</span></a>
+    </div>
+
+    <button class="btn-vermais" id="btnVerMais">
+      <span id="btnVerMaisText">Ver mais</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="sobre">
+    <div class="sobre-grid">
+      <div class="sobre-image reveal">
+        <img src="img/mauricio-sobre.jpg" alt="Maurício D'el Rei">
+      </div>
+      <div class="sobre-content reveal">
+        <h2 class="section-title">Sobre</h2>
+        <p class="sobre-text">A Delrei Arquitetura nasceu da trajetória de mais de três décadas do arquiteto <strong>Maurício D'el Rei</strong>, dedicados a construir e transformar espaços em lugares com propósito.</p>
+        <p class="sobre-text">Hoje, o escritório ganha uma nova dimensão ao reunir também seus filhos, <strong>Manoel e Manoela D'el Rei</strong>, trazendo novos olhares sem abrir mão da essência que construiu a reputação da empresa.</p>
+        <div class="sobre-stats">
+          <div>
+            <span class="sobre-stat-num">30+</span>
+            <span class="sobre-stat-label">Anos de história</span>
+          </div>
+          <div>
+            <span class="sobre-stat-num">10</span>
+            <span class="sobre-stat-label">Casas autorais</span>
+          </div>
+          <div>
+            <span class="sobre-stat-num">3</span>
+            <span class="sobre-stat-label">Gerações</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATOS -->
+  <section id="contato" class="contatos">
+    <h2 class="section-title">Contatos</h2>
+    <div class="contatos-grid reveal">
+      <div class="map-wrapper">
+        <iframe src="https://www.google.com/maps?q=R.+do+Areal,+05+-+km+11+-+Abrantes,+Camaçari+-+BA,+42827-490&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="address-card">
+        <svg class="address-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-7.5-7-12a7 7 0 0 1 14 0c0 4.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <p>R. do Areal, 05, km 11<br>Abrantes, Camaçari, BA<br>42827-490</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM -->
+  <section class="contato-form">
+    <div class="form-grid">
+      <div class="form-intro reveal">
+        <h2>Vamos conversar?</h2>
+        <p>A nossa equipe está à sua disposição para esclarecer quaisquer dúvidas. Utilize o meio de contato que preferir, estamos te aguardando.</p>
+        <div class="form-contacts">
+          <a href="mailto:contato@delreiarquitetura.com.br">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            contato@delreiarquitetura.com.br
+          </a>
+          <a href="tel:+5571981445676">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92V21a1 1 0 0 1-1.11 1A19.79 19.79 0 0 1 2 4.11 1 1 0 0 1 3 3h4.09a1 1 0 0 1 1 .75l1.27 4.55a1 1 0 0 1-.27 1L7 11.21a16 16 0 0 0 6 6l1.91-2.09a1 1 0 0 1 1-.27l4.55 1.27a1 1 0 0 1 .75 1z"/></svg>
+            71 98144-5676
+          </a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="form-msg form-msg--ok" id="formMsg" style="display:none">Mensagem enviada com sucesso. Em breve entraremos em contato.</div>
+        <form id="contatoForm">
+          <input type="text" name="nome" placeholder="Nome completo" required>
+          <input type="email" name="email" placeholder="E-mail" required>
+          <input type="tel" name="telefone" placeholder="Telefone (com DDD)">
+          <label class="field-label">Você gostaria de falar sobre:</label>
+          <select name="assunto">
+            <option>Arquitetura</option>
+            <option>Reforma</option>
+            <option>Consultoria</option>
+            <option>Outro</option>
+          </select>
+          <textarea name="mensagem" placeholder="Escreva sua mensagem:" required></textarea>
+          <button type="submit" id="submitBtn">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <img src="img/logo-branco.png" alt="Delrei Arquitetura">
+  <p>&copy; 2026 Delrei Arquitetura. Todos os direitos reservados.<br>
+  <small style="opacity:.6;font-size:10px">Site por <a href="https://ingridaragao.com" target="_blank" rel="noopener">Ingrid Aragão</a> &middot; Where Code Meets Art</small></p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content">
+    <div class="lightbox-header">
+      <span style="width:40px"></span>
+      <div class="lightbox-title-wrap">
+        <h3 class="lightbox-title" id="lbTitle">Projeto</h3>
+        <span class="lightbox-counter" id="lbCounter">1 / 9</span>
+      </div>
+      <button class="lightbox-close" id="lbClose" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="lightbox-img-wrap">
+      <img class="lightbox-img" id="lbImg" alt="">
+    </div>
+    <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Anterior">&#8249;</button>
+    <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Próxima">&#8250;</button>
+    <div class="lightbox-description" id="lbDesc"></div>
+  </div>
+</div>
+
+<script>
+const projetos = {
+  'casa-av': {nome:'Casa AV', fotos:9, desc:'Residência em madeira lamelada colada, desenhada para se integrar de forma sutil à paisagem e à topografia natural do terreno, com implantação elevada que preserva o solo e amplia a conexão com o entorno. A referência da arquitetura de Bali se expressa nos elementos da cobertura, que reforçam a identidade tropical e a leveza do projeto, enquanto os ambientes integrados promovem amplitude, convivência e continuidade visual. O olhar é conduzido ao gazebo na área da piscina, ponto focal da proposta e espaço dedicado ao relaxamento, à contemplação e ao bem-estar.'},
+  'casa-bf': {nome:'Casa BF', fotos:9, desc:'Implantada em meio à vegetação existente, a casa foi concebida para se integrar à mata e acompanhar a topografia natural do terreno, criando uma relação de imersão entre arquitetura e paisagem. A estrutura em madeira lamelada colada reforça a leveza do conjunto e a conexão com o entorno, enquanto a presença marcante da vegetação amplia a sensação de abrigo e acolhimento. O acesso principal se destaca por uma ampla escadaria de madeira, composta por degraus largos que conduzem diretamente à área de lazer, transformando a chegada em um percurso de transição e valorizando a experiência espacial desde a entrada.'},
+  'casa-dc': {nome:'Casa DC', fotos:16, desc:'Implantada em um terreno de declive acentuado, a casa explora a topografia como elemento central da proposta, criando uma composição marcada pela leveza e pela sensação de suspensão. A estrutura em madeira lamelada colada permite que a área social e de lazer se projetem sobre o terreno, quase flutuando em meio à vegetação, o que reforça a integração com a paisagem e a experiência de imersão no entorno natural. Os ambientes foram pensados de forma fluida e integrada, enquanto a cobertura com amplo balanço acentua a horizontalidade do conjunto e contribui para a identidade contemporânea do projeto. A organização dos níveis acompanha o relevo, posicionando os espaços íntimos junto ao acesso superior e conduzindo as áreas de convivência para um nível mais baixo, abraçado pela natureza.'},
+  'casa-dm': {nome:'Casa DM', fotos:12, desc:'Marcada pela estrutura em madeira lamelada colada, a casa se destaca pelo grande painel em brise de madeira que percorre a porção superior da fachada, conferindo identidade e um desenho singular ao conjunto. O acesso acontece por um pátio coberto com pergolado e vidro, que qualifica a chegada e distribui de forma fluida os percursos entre a sala de estar e a circulação principal. Nos fundos, a ampla área de lazer se integra ao espaço gourmet, concebido como extensão da cozinha e do convívio social, reforçando a continuidade entre interior e exterior. No pavimento superior, os quartos se organizam de forma reservada, garantindo privacidade sem comprometer a unidade da proposta.'},
+  'casa-dr': {nome:'Casa DR', fotos:9, desc:'Com estrutura mista em madeira e concreto, a casa é marcada pela forte horizontalidade de sua arquitetura, evidenciada pela composição linear dos volumes e pela relação direta com o terreno. A implantação foi definida a partir da orientação solar, posicionando a área de lazer na porção frontal do lote para aproveitar de forma estratégica o poente e valorizar a vivência dos espaços externos. A organização interna acompanha a topografia natural, concentrando a área social no pavimento térreo, no nível da rua, enquanto os quartos se distribuem no pavimento inferior, garantindo maior privacidade e uma integração mais reservada com o relevo do terreno.'},
+  'casa-ef': {nome:'Casa EF', fotos:8, desc:'Desenvolvida em estrutura mista de madeira lamelada colada e concreto, a casa se organiza em três pavimentos que acompanham a lógica funcional e a topografia do terreno. A composição valoriza a clareza dos níveis e a fluidez entre os usos, distribuindo os espaços de apoio no pavimento inferior, as áreas sociais no nível principal e os ambientes íntimos no pavimento superior. Como elemento de destaque, a piscina suspensa assume papel central na proposta, integrando-se à arquitetura como extensão estrutural do volume e reforçando a leveza e a sofisticação do conjunto.'},
+  'casa-gs': {nome:'Casa GS', fotos:9, desc:'Toda estruturada em madeira lamelada colada, a casa tem sua arquitetura marcada por uma grande passarela que organiza e conecta os principais ambientes, conduzindo de forma contínua o percurso entre as áreas de estar interna e externa, a cozinha, o espaço gourmet e a área de lazer ao fundo, o que reforça a fluidez da proposta e valoriza a experiência espacial ao longo da residência. As áreas sociais se concentram no pavimento inferior, enquanto os quartos ocupam o nível superior, garantindo uma organização clara e funcional, ao mesmo tempo em que o paisagismo integrado permite que a vegetação permeie os espaços e pareça adentrar a casa, intensificando a conexão entre interior e natureza.'},
+  'casa-pe': {nome:'Casa PE', fotos:12, desc:'Com estrutura mista em madeira engenheirada e bloco estrutural de concreto aparente, a casa se destaca pela cobertura ampla, marcada por um grande beiral inclinado que confere presença arquitetônica e reforça a proteção dos espaços. Os ambientes sociais foram concebidos de forma totalmente integrada, conectando sala, cozinha gourmet e área de lazer com piscina em uma experiência contínua de convivência. No pavimento superior, uma passarela atravessa o vazio sobre a sala e articula o acesso aos quartos, criando um elemento de ligação que valoriza a espacialidade interna e a relação entre os níveis.'},
+  'casa-raf': {nome:'Casa RAF', fotos:7, desc:'Em estrutura de madeira lamelada colada, a casa valoriza a experiência da chegada ao revelar, logo em frente à entrada principal, um amplo jardim interno emoldurado por uma parede de pedra, criando um ponto de respiro e conexão imediata com a natureza. No térreo, os ambientes sociais se desenvolvem de forma integrada, reunindo cozinha, sala de estar, sala de TV e área de lazer em uma composição fluida e contínua. No pavimento superior, os quartos se organizam de forma mais reservada, enquanto a fachada é marcada pelo contorno em muxarabis, elemento que confere identidade, leveza e controle de luz ao volume.'},
+  'casa-rm': {nome:'Casa RM', fotos:10, desc:'Totalmente estruturada em madeira lamelada colada e envolvida pela vegetação nativa, a casa térrea foi concebida para se integrar de forma natural ao entorno e valorizar a relação contínua entre interior e exterior. Os ambientes sociais se desenvolvem de forma fluida, conectando sala de estar, cozinha gourmet e a área de lazer com piscina em um único eixo de convivência. Os quartos se orientam para esse espaço externo, fortalecendo a sensação de acolhimento e a vivência da área de lazer como núcleo da casa. A fachada em pedra, que se estende para o interior, reforça a unidade material do projeto e acrescenta textura e permanência à arquitetura.'},
+};
+
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('splash').classList.add('is-hidden'), 600);
+});
+
+/* HERO CAROUSEL: slide 0 = marca (sem quadrante), 1-3 = projetos (com quadrante) */
+const slides = document.querySelectorAll('.hero-slide');
+const texts = document.querySelectorAll('.hero-text');
+const dots = document.querySelectorAll('.hero-dot');
+const quadrant = document.getElementById('heroQuadrant');
+const heroEl = document.querySelector('.hero');
+let current = 0;
+let timer = null;
+function show(i){
+  slides.forEach((s,k) => s.classList.toggle('is-active', k===i));
+  dots.forEach((d,k) => d.classList.toggle('is-active', k===i));
+  if (i === 0) {
+    quadrant.classList.remove('is-visible');
+    texts.forEach(t => t.classList.remove('is-active'));
+    heroEl.classList.remove('slide-projeto');
+  } else {
+    quadrant.classList.add('is-visible');
+    texts.forEach((t,k) => t.classList.toggle('is-active', k === i - 1));
+    heroEl.classList.add('slide-projeto');
+  }
+  current = i;
+}
+function next(){ show((current+1) % slides.length); }
+function start(){ timer = setInterval(next, 5500); }
+start();
+dots.forEach((d,i) => d.addEventListener('click', () => { clearInterval(timer); show(i); start(); }));
+heroEl.addEventListener('mouseenter', () => clearInterval(timer));
+heroEl.addEventListener('mouseleave', start);
+
+/* MOBILE MENU */
+const toggle = document.getElementById('menuToggle');
+const nav = document.getElementById('nav');
+toggle.addEventListener('click', () => {
+  toggle.classList.toggle('is-open');
+  nav.classList.toggle('is-open');
+});
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  toggle.classList.remove('is-open');
+  nav.classList.remove('is-open');
+}));
+
+/* HEADER */
+const header = document.getElementById('header');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y > lastScroll && y > 200) header.classList.add('is-hidden');
+  else header.classList.remove('is-hidden');
+  lastScroll = y;
+}, {passive:true});
+
+/* ACTIVE LINK */
+const sections = document.querySelectorAll('main section[id]');
+const links = document.querySelectorAll('.site-nav a');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY + 140;
+  let active = 'home';
+  sections.forEach(s => { if (y >= s.offsetTop) active = s.id; });
+  links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + active));
+}, {passive:true});
+
+/* REVEAL */
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('is-visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, {threshold:.12, rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => obs.observe(el));
+
+/* BTN VER MAIS */
+const btnVerMais = document.getElementById('btnVerMais');
+const btnVerMaisText = document.getElementById('btnVerMaisText');
+const ocultos = document.querySelectorAll('.projeto-card.oculto');
+let expandido = false;
+btnVerMais.addEventListener('click', () => {
+  expandido = !expandido;
+  ocultos.forEach((c, i) => {
+    if (expandido) {
+      c.style.display = '';
+      // Stagger animation
+      c.style.opacity = '0';
+      c.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        c.style.transition = 'opacity .6s ease, transform .6s ease';
+        c.style.opacity = '1';
+        c.style.transform = 'translateY(0)';
+      }, 60 * i);
+    } else {
+      c.style.display = 'none';
+    }
+  });
+  btnVerMaisText.textContent = expandido ? 'Ver menos' : 'Ver mais';
+  if (!expandido) {
+    document.getElementById('projetos').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+});
+
+/* LIGHTBOX */
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbTitle = document.getElementById('lbTitle');
+const lbCounter = document.getElementById('lbCounter');
+const lbDesc = document.getElementById('lbDesc');
+const lbClose = document.getElementById('lbClose');
+const lbPrev = document.getElementById('lbPrev');
+const lbNext = document.getElementById('lbNext');
+let lbProj = null, lbIdx = 0;
+
+function openProjeto(slug){
+  const p = projetos[slug];
+  if (!p) return;
+  lbProj = slug;
+  lbIdx = 0;
+  lbTitle.textContent = p.nome;
+  lbDesc.textContent = p.desc;
+  showLbImg();
+  lb.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+function showLbImg(){
+  const p = projetos[lbProj];
+  const num = String(lbIdx + 1).padStart(2, '0');
+  lbImg.src = `img/galerias/${lbProj}/${num}.jpg`;
+  lbImg.alt = `${p.nome} - foto ${lbIdx+1}`;
+  lbCounter.textContent = `${lbIdx+1} / ${p.fotos}`;
+}
+function closeLb(){
+  lb.classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+function navLb(dir){
+  const p = projetos[lbProj];
+  lbIdx = (lbIdx + dir + p.fotos) % p.fotos;
+  showLbImg();
+}
+document.querySelectorAll('[data-open-projeto]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    openProjeto(el.dataset.openProjeto);
+  });
+});
+lbClose.addEventListener('click', closeLb);
+lbPrev.addEventListener('click', () => navLb(-1));
+lbNext.addEventListener('click', () => navLb(1));
+lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('is-open')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft') navLb(-1);
+  if (e.key === 'ArrowRight') navLb(1);
+});
+
+let touchX = 0;
+lb.addEventListener('touchstart', e => touchX = e.touches[0].clientX, {passive:true});
+lb.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 50) navLb(dx > 0 ? -1 : 1);
+}, {passive:true});
+
+/* FORM */
+const form = document.getElementById('contatoForm');
+const formMsg = document.getElementById('formMsg');
+const submitBtn = document.getElementById('submitBtn');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Enviando...';
+  setTimeout(() => {
+    form.reset();
+    formMsg.style.display = 'block';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar';
+    setTimeout(() => formMsg.style.display = 'none', 6000);
+  }, 1200);
+});
+</script>
+</body>
+</html>
