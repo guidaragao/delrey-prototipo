@@ -67,10 +67,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* Versao mobile do slide marca: foto pura + quadrante CSS recriado */
 .hero-marca-mobile{display:none;position:absolute;inset:0}
-.hero-marca-mobile-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(100%) contrast(1.05) brightness(.88);animation:kenburnsM 9s ease-out forwards}
-.hero-marca-mobile-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.4) 100%)}
+.hero-marca-mobile-bg{position:absolute;inset:0;background-size:cover;background-position:center top;filter:grayscale(100%) contrast(1.05) brightness(.88);animation:kenburnsM 9s ease-out forwards}
+.hero-marca-mobile-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.5) 100%)}
 @keyframes kenburnsM{from{transform:scale(1.05)}to{transform:scale(1)}}
-.hero-marca-mobile-quadrant{position:absolute;top:0;left:0;width:82%;height:50%;background:var(--gold);padding:32px 28px;display:flex;align-items:center;border-bottom-right-radius:50% 40%;z-index:2;overflow:hidden}
+.hero-marca-mobile-quadrant{position:absolute;bottom:0;left:0;right:0;background:var(--gold);padding:24px 28px 28px;display:flex;align-items:center;z-index:2;overflow:hidden;box-shadow:0 -20px 40px rgba(0,0,0,.15)}
 .hero-marca-mobile-quadrant::before{content:'';position:absolute;inset:0;background:url('img/textura.png') no-repeat center/cover;opacity:.3;mix-blend-mode:overlay}
 .hero-marca-mobile-title{font-family:var(--font-display);font-size:clamp(15px,4.4vw,22px);font-weight:300;line-height:1.4;letter-spacing:.06em;text-transform:uppercase;color:var(--white);margin:0;position:relative;z-index:1}
 .hero-marca-mobile-title em{font-family:var(--font-display);font-style:normal;font-weight:600;letter-spacing:.04em}
@@ -104,9 +104,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .with-texture::before{content:'';position:absolute;inset:0;background:url('img/textura.png') no-repeat center/cover;opacity:.18;pointer-events:none;z-index:0}
 .with-texture > *{position:relative;z-index:1}
 
+/* TEXTURA FORTE (secao Projetos) */
+.with-texture-strong{position:relative}
+.with-texture-strong::before{content:'';position:absolute;inset:0;background-image:url('img/textura.png');background-repeat:no-repeat;background-position:center top;background-size:140% auto;opacity:.55;pointer-events:none;z-index:0}
+.with-texture-strong > *{position:relative;z-index:1}
+
 /* SECTION TITLE */
-.section-title{font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:.45em;text-transform:uppercase;color:var(--black);margin:0 auto 56px;text-align:center;display:block;width:fit-content;position:relative}
-.section-title::after{content:'';display:block;width:50px;height:1px;background:var(--gold);margin:14px auto 0}
+.section-title{font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:.5em;text-transform:uppercase;color:var(--black);margin:0 auto 56px;text-align:center;display:block;width:fit-content;position:relative}
+.section-title::after{content:'';display:block;width:60px;height:1px;background:var(--gold);margin:18px auto 0}
 
 /* PROJETOS */
 .projetos{padding:var(--section-padding);background:var(--white);overflow:hidden}
@@ -139,9 +144,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .sobre-content .section-title::before{content:'';position:absolute;left:0;top:50%;width:36px;height:1px;background:var(--gold)}
 .sobre-text{font-family:var(--font-body);font-size:15px;line-height:1.9;color:var(--grey-text);margin-bottom:20px;max-width:560px}
 .sobre-text strong{color:var(--black);font-weight:700}
-.sobre-stats{display:flex;gap:56px;margin-top:42px;padding-top:36px;border-top:1px solid rgba(195,163,77,.35)}
-.sobre-stat-num{font-family:var(--font-display);font-style:normal;font-size:54px;font-weight:300;color:var(--gold);line-height:1;display:block;letter-spacing:-.02em}
+.sobre-stats{display:flex;gap:48px;margin-top:42px;padding-top:36px;border-top:1px solid rgba(195,163,77,.35);align-items:center}
+.sobre-stat{flex-shrink:0}
+.sobre-stat-num{font-family:var(--font-display);font-style:normal;font-size:64px;font-weight:300;color:var(--gold);line-height:1;display:block;letter-spacing:-.02em}
 .sobre-stat-label{display:block;font-family:var(--font-display);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--grey-text);margin-top:8px;font-weight:400}
+.sobre-tagline{padding-left:48px;border-left:1px solid rgba(195,163,77,.3)}
+.sobre-tagline p{font-family:var(--font-display);font-size:18px;font-weight:400;color:var(--black);line-height:1.4;letter-spacing:.04em;margin:0 0 8px;text-transform:uppercase}
+.sobre-tagline-sub{display:block;font-family:var(--font-body);font-size:13px;color:var(--grey-text);line-height:1.6;font-style:italic}
 
 /* CONTATOS */
 .contatos{padding:130px 24px 0}
@@ -156,25 +165,25 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .address-card p{font-family:var(--font-body);font-size:15px;line-height:1.75;margin:0;font-weight:400;position:relative;z-index:1}
 
 /* FORM */
-.contato-form{padding:120px 24px;background:var(--cream);position:relative;overflow:hidden}
+.contato-form{padding:90px 24px;background:var(--cream);position:relative;overflow:hidden}
 .contato-form::before{content:'';position:absolute;inset:0;background:url('img/textura.png') no-repeat center/cover;opacity:.15;pointer-events:none}
-.form-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:90px;max-width:var(--max-width);margin:0 auto;align-items:start;position:relative;z-index:1}
-.form-intro h2{font-family:var(--font-display);font-size:clamp(38px,4.2vw,60px);line-height:1;font-weight:600;text-transform:uppercase;color:var(--gold);margin:0 0 30px;letter-spacing:.02em}
-.form-intro p{font-family:var(--font-body);font-size:15px;line-height:1.8;color:var(--grey-text);margin:0 0 16px;max-width:380px}
-.form-contacts{margin-top:40px;padding-top:28px;border-top:1px solid var(--grey-line);font-size:14px;color:var(--grey-text)}
-.form-contacts a{font-family:var(--font-body);color:var(--grey-text);display:flex;align-items:center;gap:12px;margin-bottom:10px;transition:color .3s}
+.form-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;max-width:1100px;margin:0 auto;align-items:start;position:relative;z-index:1}
+.form-intro h2{font-family:var(--font-display);font-size:clamp(30px,3.2vw,44px);line-height:1.05;font-weight:600;text-transform:uppercase;color:var(--gold);margin:0 0 20px;letter-spacing:.02em}
+.form-intro p{font-family:var(--font-body);font-size:14px;line-height:1.75;color:var(--grey-text);margin:0 0 14px;max-width:340px}
+.form-contacts{margin-top:32px;padding-top:22px;border-top:1px solid var(--grey-line);font-size:13px;color:var(--grey-text)}
+.form-contacts a{font-family:var(--font-body);color:var(--grey-text);display:flex;align-items:center;gap:10px;margin-bottom:8px;transition:color .3s}
 .form-contacts a:hover{color:var(--gold-dark)}
-.form-contacts svg{width:16px;height:16px;opacity:.7;flex-shrink:0}
-.contato-form input,.contato-form select,.contato-form textarea{width:100%;padding:18px 26px;border:1px solid var(--grey-line);border-radius:100px;background:var(--white);font-family:var(--font-body);font-size:14px;color:var(--grey-text);margin-bottom:14px;outline:none;transition:all .3s ease}
-.contato-form textarea{border-radius:24px;min-height:120px;resize:vertical;padding-top:20px}
-.contato-form input:focus,.contato-form select:focus,.contato-form textarea:focus{border-color:var(--gold);box-shadow:0 4px 24px rgba(195,163,77,.18)}
+.form-contacts svg{width:14px;height:14px;opacity:.7;flex-shrink:0}
+.contato-form input,.contato-form select,.contato-form textarea{width:100%;padding:14px 22px;border:1px solid var(--grey-line);border-radius:60px;background:var(--white);font-family:var(--font-body);font-size:13px;color:var(--grey-text);margin-bottom:10px;outline:none;transition:all .3s ease}
+.contato-form textarea{border-radius:18px;min-height:100px;resize:vertical;padding-top:16px}
+.contato-form input:focus,.contato-form select:focus,.contato-form textarea:focus{border-color:var(--gold);box-shadow:0 4px 18px rgba(195,163,77,.15)}
 .contato-form input::placeholder,.contato-form textarea::placeholder{color:var(--gold-soft);opacity:1;font-family:var(--font-body)}
-.contato-form select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23C3A34D' stroke-width='1.5' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 26px center;background-size:12px;color:var(--gold-soft)}
-.contato-form .field-label{display:block;font-family:var(--font-display);font-size:12px;color:var(--grey-soft);margin:8px 26px 6px;letter-spacing:.1em;text-transform:uppercase}
-.contato-form button[type="submit"]{width:100%;padding:22px;background:var(--gold);color:var(--white);border-radius:100px;font-family:var(--font-display);font-size:12px;letter-spacing:.35em;text-transform:uppercase;font-weight:600;border:none;cursor:pointer;transition:all .35s ease;margin-top:8px}
-.contato-form button[type="submit"]:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 14px 30px rgba(195,163,77,.4)}
+.contato-form select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23C3A34D' stroke-width='1.5' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 22px center;background-size:11px;color:var(--gold-soft)}
+.contato-form .field-label{display:block;font-family:var(--font-display);font-size:11px;color:var(--grey-soft);margin:6px 22px 5px;letter-spacing:.1em;text-transform:uppercase}
+.contato-form button[type="submit"]{width:100%;padding:16px;background:var(--gold);color:var(--white);border-radius:60px;font-family:var(--font-display);font-size:11px;letter-spacing:.35em;text-transform:uppercase;font-weight:600;border:none;cursor:pointer;transition:all .35s ease;margin-top:6px}
+.contato-form button[type="submit"]:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 12px 26px rgba(195,163,77,.35)}
 .contato-form button[type="submit"]:disabled{opacity:.7;cursor:wait;transform:none}
-.form-msg{padding:18px 24px;border-radius:60px;margin-bottom:18px;font-family:var(--font-body);font-size:13px;text-align:center}
+.form-msg{padding:14px 20px;border-radius:60px;margin-bottom:14px;font-family:var(--font-body);font-size:12px;text-align:center}
 .form-msg--ok{background:var(--white);border:1px solid var(--gold);color:var(--gold-dark)}
 
 /* FOOTER */
@@ -230,7 +239,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   .site-header .container{padding:14px 20px}
   .site-nav{position:fixed;top:64px;left:0;right:0;background:var(--white);flex-direction:column;padding:32px 24px;gap:22px;border-bottom:1px solid var(--grey-line);transform:translateY(-120%);transition:transform .45s ease;align-items:flex-start}
   .site-nav.is-open{transform:translateY(0)}
-  .hero{margin-top:64px;height:calc(85vh - 64px);min-height:520px;background:#0a0a0a !important}
+  .hero{margin-top:64px;height:calc(95vh - 64px);min-height:600px;background:#0a0a0a !important}
   .hero-img-marca{display:none}
   .hero-marca-mobile{display:block}
   .hero.slide-projeto .hero-dot{background:rgba(255,255,255,.4)}
@@ -241,8 +250,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   .hero-text{left:28px;right:28px}
   .sobre-grid{grid-template-columns:1fr;gap:48px}
   .sobre-image::before,.sobre-image::after{display:none}
-  .sobre-stats{gap:32px}
-  .sobre-stat-num{font-size:38px}
+  .sobre-stats{flex-direction:column;align-items:flex-start;gap:24px}
+  .sobre-stat-num{font-size:48px}
+  .sobre-tagline{padding-left:0;border-left:none;padding-top:24px;border-top:1px solid rgba(195,163,77,.3)}
+  .sobre-tagline p{font-size:15px}
   .contatos-grid{grid-template-columns:1fr}
   .map-wrapper iframe{min-height:240px}
   .address-card{padding:36px 28px}
@@ -295,7 +306,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
       <div class="hero-slide is-active">
         <img src="img/banner-marca.jpg" class="hero-img-marca" alt="Mais de três décadas projetando com alma e identidade">
         <div class="hero-marca-mobile" aria-hidden="true">
-          <div class="hero-marca-mobile-bg" style="background-image:url('img/mauricio.jpg')"></div>
+          <div class="hero-marca-mobile-bg" style="background-image:url('img/mauricio-mobile.jpg')"></div>
           <div class="hero-marca-mobile-quadrant">
             <h1 class="hero-marca-mobile-title">MAIS DE TRÊS DÉCADAS PROJETANDO COM <em>ALMA</em> E IDENTIDADE</h1>
           </div>
@@ -336,7 +347,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   </section>
 
   <!-- PROJETOS -->
-  <section id="projetos" class="projetos with-texture">
+  <section id="projetos" class="projetos with-texture-strong">
     <h2 class="section-title">Projetos</h2>
     <p class="projetos-intro reveal">Cada projeto, uma história. Cada espaço, uma identidade. Conheça obras que traduzem três décadas de experiência em arquitetura residencial autoral.</p>
 
@@ -364,24 +375,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   <section id="sobre" class="sobre">
     <div class="sobre-grid">
       <div class="sobre-image reveal">
-        <img src="img/mauricio-sobre.jpg" alt="Maurício D'el Rei">
+        <img src="img/sobre-equipe-sq.jpg" alt="Maurício, Manoel e Manoela D'el Rei">
       </div>
       <div class="sobre-content reveal">
         <h2 class="section-title">Sobre</h2>
         <p class="sobre-text">A Delrei Arquitetura nasceu da trajetória de mais de três décadas do arquiteto <strong>Maurício D'el Rei</strong>, dedicados a construir e transformar espaços em lugares com propósito.</p>
         <p class="sobre-text">Hoje, o escritório ganha uma nova dimensão ao reunir também seus filhos, <strong>Manoel e Manoela D'el Rei</strong>, trazendo novos olhares sem abrir mão da essência que construiu a reputação da empresa.</p>
         <div class="sobre-stats">
-          <div>
+          <div class="sobre-stat">
             <span class="sobre-stat-num">30+</span>
             <span class="sobre-stat-label">Anos de história</span>
           </div>
-          <div>
-            <span class="sobre-stat-num">10</span>
-            <span class="sobre-stat-label">Casas autorais</span>
-          </div>
-          <div>
-            <span class="sobre-stat-num">3</span>
-            <span class="sobre-stat-label">Gerações</span>
+          <div class="sobre-tagline">
+            <p>Arquitetura com herança e visão de futuro.</p>
+            <span class="sobre-tagline-sub">Mais de 35 anos transformando espaços com propósito.</span>
           </div>
         </div>
       </div>
